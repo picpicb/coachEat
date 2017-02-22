@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,10 +9,76 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.picpicb.coacheat.MainActivity">
+    tools:context="com.example.picpicb.coacheat.MainActivity"
+    android:minHeight="180dp">
 
-    <TextView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:id="@+id/userImage" />
+
+    <TextView
+        android:text="pseudo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/pseudo" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/pseudo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:id="@+id/ToggleGroup">
+
+        <ToggleButton
+            android:text="Maigrir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="-8dp"
+            android:id="@+id/toggleButton3"
+            android:layout_weight="1"
+            android:checked="false"
+            android:textOff="Maigrir"
+            android:textOn="Maigrir" />
+
+        <ToggleButton
+            android:text="Maintenir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="-8dp"
+            android:id="@+id/toggleButton2"
+            android:layout_weight="1"
+            android:textOff="Maintenir"
+            android:textOn="Maintenir" />
+
+        <ToggleButton
+            android:text="Grossir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/toggleButton"
+            android:layout_weight="1"
+            android:textOff="Grossir"
+            android:textOn="Grossir" />
+    </RadioGroup>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:entries="@array/menu_list"
+        android:layout_marginBottom="33dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

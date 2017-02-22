@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CoachEat</string>
+    <string-array name="menu_list">
+        <item>Menu du jour</item>
+        <item>Mon corps</item>
+        <item>Scan produit</item>
+    </string-array>
 </resources>
