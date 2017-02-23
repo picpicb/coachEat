@@ -1,31 +1,66 @@
 package com.example.picpicb.coacheat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class MainActivity extends AppCompatActivity {
 
+    public ArrayList<ToggleButton> toggles;
+    public ListView menu;
+    public ImageButton userImage;
 
 
-    static final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
-            for (int j = 0; j < radioGroup.getChildCount(); j++) {
-                System.out.println("toto");
-                final ToggleButton view = (ToggleButton) radioGroup.getChildAt(j);
-                view.setChecked(view.getId() == i);
-            }
-        }
-    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toggles = new ArrayList<ToggleButton>();
+        toggles.add((ToggleButton) findViewById(R.id.toggleButton));
+        toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
+        toggles.add((ToggleButton) findViewById(R.id.toggleButton3));
+        menu = (ListView) findViewById(R.id.menu);
+        userImage = (ImageButton) findViewById(R.id.userImage);
 
-        ((RadioGroup) findViewById(R.id.ToggleGroup)).setOnCheckedChangeListener(ToggleListener);
+
+        for(ToggleButton t : toggles){
+            t.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    for (ToggleButton t : toggles) {
+                        if(t.getId() != v.getId())
+                            t.setChecked(false);
+                    }
+                }
+            });
+        }
+
+        menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+
+            }
+        });
+
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
     }
 }
