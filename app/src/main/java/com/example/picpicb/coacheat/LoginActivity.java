@@ -217,6 +217,9 @@ public class LoginActivity extends AppCompatActivity {
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 line = rd.readLine();
                 //System.out.println(line);
+                System.out.println("-------------");
+                Utilisateur u = new Utilisateur(2);
+
                 rd.close();
 
             } catch (MalformedURLException e) {
@@ -228,12 +231,17 @@ public class LoginActivity extends AppCompatActivity {
             } catch (KeyManagementException e) {
                 e.printStackTrace();
             }
+
+
             if(!line.equals("0")){
                 id = Integer.parseInt(line);
                 return true;
             }else{
                 return false;
             }
+
+
+
         }
 
         @Override
