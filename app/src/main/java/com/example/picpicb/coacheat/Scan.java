@@ -1,6 +1,7 @@
 package com.example.picpicb.coacheat;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,11 @@ import android.widget.ToggleButton;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Scan extends AppCompatActivity {
 
@@ -36,6 +42,9 @@ public class Scan extends AppCompatActivity {
             String scanFormat = scanningResult.getFormatName();
 
             System.out.println(scanContent);
+
+            OpenFood opt= new OpenFood(scanContent);
+            opt.execute((Void) null);
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -43,5 +52,42 @@ public class Scan extends AppCompatActivity {
             toast.show();
         }
 
+    }
+    public class OpenFood extends AsyncTask<Void, Void, Boolean> {
+        private int codeB;
+
+        public OpenFood(String scanContent) {
+            codeB = Integer.parseInt(scanContent);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            URL url;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL("https://fr.openfoodfacts.org/api/v0/produit/"+codeB+".json");
+
+                urlConnection = (HttpURLConnection) url
+                        .openConnection();
+
+                InputStream in = urlConnection.getInputStream();
+
+                InputStreamReader isw = new InputStreamReader(in);
+
+                int data = isw.read();
+                while (data != -1) {
+                    char current = (char) data;
+                    data = isw.read();
+                    System.out.print(current);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+
+        }
     }
 }
