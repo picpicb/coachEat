@@ -58,7 +58,6 @@ import static com.example.picpicb.coacheat.R.id.password;
 
 
 public class LoginActivity extends AppCompatActivity {
-
     private UserLoginTask mAuthTask = null;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -70,9 +69,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(password);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
         Button mEmailSignInButton = (Button) findViewById(R.id.ok);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -80,8 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
         this2 = this;
     }
 
@@ -89,30 +87,25 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuthTask != null) {
             return;
         }
-
         mEmailView.setError(null);
         mPasswordView.setError(null);
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-
         boolean cancel = false;
         View focusView = null;
-
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
         }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -137,7 +130,6 @@ public class LoginActivity extends AppCompatActivity {
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -146,10 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
-
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            mProgressView.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -164,18 +154,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
         private final String mEmail;
         private final String mPassword;
         private int id;
         private final String url_login;
 
-        UserLoginTask(String email, String password) {
+        public UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
             id = 0;
             url_login = "https://picpicb.ddns.net/api_coacheat/login.php";
-
         }
 
         @Override
@@ -216,10 +204,6 @@ public class LoginActivity extends AppCompatActivity {
                 InputStream is = conn.getInputStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 line = rd.readLine();
-                //System.out.println(line);
-                System.out.println("-------------");
-                Utilisateur u = new Utilisateur(2);
-
                 rd.close();
 
             } catch (MalformedURLException e) {
@@ -231,27 +215,19 @@ public class LoginActivity extends AppCompatActivity {
             } catch (KeyManagementException e) {
                 e.printStackTrace();
             }
-
-
             if(!line.equals("0")){
                 id = Integer.parseInt(line);
                 return true;
             }else{
                 return false;
             }
-
-
-
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
-               // finish();
-                System.out.println("YO:"+id);
                 Intent intent = new Intent(this2, MainActivity.class);
                 intent.putExtra("USER_ID", Integer.toString(id));
                 startActivity(intent);

@@ -4,8 +4,10 @@ import java.io.BufferedWriter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -99,74 +102,96 @@ public class Utilisateur {
     private String objectif;
     private String photo;
 
-    public Utilisateur(int id) throws JSONException{
+    public Utilisateur(int id){
         this.id = id;
         //recuperation des données depuis la BD
-        String line ="";
-        try {
-            URL url = new URL("https://picpicb.ddns.net/api_coacheat/coach.php?id="+this.id );
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            SSLContext ctx1 = SSLContext.getInstance("TLS");
-            ctx1.init(null, new TrustManager[] {
-                    new X509TrustManager() {
-                        public void checkClientTrusted(X509Certificate[] chain, String authType) {}
-                        public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-                        public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
-                    }
-            }, null);
-            conn.setDefaultSSLSocketFactory(ctx1.getSocketFactory());
-            conn.setDefaultHostnameVerifier(new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+        (new UserInfoTask("https://picpicb.ddns.net/api_coacheat/coach.php?id="+this.id)).execute((Void) null);
+    }
 
-            String pparams = "" ;
-            OutputStream os =null;
-            os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(pparams);
-            writer.flush();
-            writer.close();
-            os.close();
-            conn.connect();
-
-            InputStream is = conn.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            line = rd.readLine();
-            System.out.println("------OOO--OOOO---");
-
-            System.out.println(line);
-
-            JSONObject jsonObj = new JSONObject(line);
-            setNom(jsonObj.getString("nom"));
-            setPrenom(jsonObj.getString("nom"));
-            setPseudo(jsonObj.getString("pseudo"));
-            setAge(jsonObj.getInt("age"));
-            setTaille(jsonObj.getInt("taille"));
-            setPoids(jsonObj.getInt("poids"));
-            setPhoto(jsonObj.getString("photoLien"));
-            setObjectif(jsonObj.getString("objectifEnCour"));
-
-
-            rd.close();
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
+    class UserInfoTask extends AsyncTask<Void, Void, String> {
+        String url_info;
+        public UserInfoTask(String url) {
+            url_info = url;
         }
 
+        @Override
+        protected String doInBackground(Void... params) {
+            String line = "0";
+            try {
+                URL url = new URL(url_info);
+                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                SSLContext ctx1 = SSLContext.getInstance("TLS");
+                ctx1.init(null, new TrustManager[] {
+                        new X509TrustManager() {
+                            public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+                            public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+                            public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
+                        }
+                }, null);
+                conn.setDefaultSSLSocketFactory(ctx1.getSocketFactory());
+                conn.setDefaultHostnameVerifier(new HostnameVerifier() {
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                String pparams = "" ;
+                OutputStream os =null;
+                os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(pparams);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                line = rd.readLine();
+                StringBuilder sb = new StringBuilder();
+                sb.append(line);
+                is.close();
+                rd.close();
+                return sb.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String reponse) {
+            reponse = reponse.replace("[", "").replace("]", "");
+            try {
+                JSONObject jsonObj = new JSONObject(reponse);
+                setNom(jsonObj.getString("nom"));
+                setPrenom(jsonObj.getString("nom"));
+                setPseudo(jsonObj.getString("pseudo"));
+                setAge(jsonObj.getInt("age"));
+                setTaille(jsonObj.getInt("taille"));
+                setPoids(jsonObj.getInt("poids"));
+                setPhoto(jsonObj.getString("photoLien"));
+                setObjectif(jsonObj.getString("objectifEnCour"));
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+    }
+
+
+
+    public String toString(){
+        return "ID: "+id+" -- Prenom: "+prenom+" -- Nom: "+nom+" -- Pseudo: "+pseudo+" -- Age: "+age+" -- Poids: "+poids+" - Taille: "+taille;
     }
 
     public int getId() {

@@ -19,10 +19,9 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<ToggleButton> toggles;
     public ListView menu;
     public ImageButton userImage;
-
-
     private int USER_ID;
     private AppCompatActivity this2;
+    private Utilisateur user;
 
 
 
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int USER_ID = Integer.parseInt(intent.getStringExtra("USER_ID"));
         System.out.println("MAIN ID :"+USER_ID);
+        user = new Utilisateur(USER_ID);
 
 
         toggles = new ArrayList<ToggleButton>();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         System.out.println("///////////////");
-
-
+        System.out.println(user);
     }
+
 }
