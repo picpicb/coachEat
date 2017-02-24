@@ -3,6 +3,7 @@ package com.example.picpicb.coacheat;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private AppCompatActivity this2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        this2 = this;
     }
 
     private void attemptLogin() {
@@ -241,6 +244,10 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                // finish();
                 System.out.println("YO:"+id);
+                Intent intent = new Intent(this2, MainActivity.class);
+                intent.putExtra("USER_ID", Integer.toString(id));
+                startActivity(intent);
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

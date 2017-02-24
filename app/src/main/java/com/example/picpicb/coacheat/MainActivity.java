@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<ToggleButton> toggles;
     public ListView menu;
     public ImageButton userImage;
+    private int USER_ID;
+    private AppCompatActivity this2;
 
 
 
@@ -27,12 +29,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        int USER_ID = Integer.parseInt(intent.getStringExtra("USER_ID"));
+        System.out.println("MAIN ID :"+USER_ID);
         toggles = new ArrayList<ToggleButton>();
         toggles.add((ToggleButton) findViewById(R.id.toggleButton));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton3));
         menu = (ListView) findViewById(R.id.menu);
         userImage = (ImageButton) findViewById(R.id.userImage);
+        this2 = this;
 
 
         for(ToggleButton t : toggles){
@@ -49,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-
+                Intent intent = new Intent(this2, Scan.class);
+                startActivity(intent);
             }
         });
 
