@@ -3,6 +3,7 @@ package com.example.picpicb.coacheat;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class Scan extends AppCompatActivity {
     TextView proteines;
     TextView nomProduit;
     ImageView photoProduit;
+    ImageView nutriscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class Scan extends AppCompatActivity {
         proteines = (TextView) findViewById(R.id.textView5);
         nomProduit = (TextView) findViewById(R.id.textView2);
         photoProduit = (ImageView) findViewById(R.id.imageView);
+        nutriscore = (ImageView) findViewById(R.id.nutriscore);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent ){
@@ -108,13 +111,40 @@ public class Scan extends AppCompatActivity {
                 JSONObject nutriments = produit.getJSONObject("nutriments");
 
                 new DownloadImageTask(photoProduit).execute(produit.getString("image_front_url"));
-                nomProduit.setText(produit.getString("product_name_fr"));
+                photoProduit.setVisibility(View.VISIBLE);
+                switch (produit.getString("nutrition_grades")) {
+                    case "a":
+                        nutriscore.setImageResource(R.drawable.ic_nutriscore_a);
+                        break;
+                    case "b":
+                        nutriscore.setImageResource(R.drawable.ic_nutriscore_b);
+                        break;
+                    case "c":
+                        nutriscore.setImageResource(R.drawable.ic_nutriscore_c);
+                        break;
+                    case "d":
+                        nutriscore.setImageResource(R.drawable.ic_nutriscore_d);
+                        break;
+                    case "e":
+                        nutriscore.setImageResource(R.drawable.ic_nutriscore_e);
+                        break;
+                    default: break;
+                }
 
-                calories.setText(nutriments.getString("energy"));
-                sel.setText(nutriments.getString("salt_100g"));
-                lipides.setText(nutriments.getString("fat_100g"));
-                glucides.setText(nutriments.getString("carbohydrates_100g"));
-                proteines.setText(nutriments.getString("proteins_100g"));
+
+                nomProduit.setText(produit.getString("product_name_fr"));
+                nomProduit.setVisibility(View.VISIBLE);
+
+                calories.setText("Energie: "+nutriments.getString("energy")+" kJ");
+                calories.setVisibility(View.VISIBLE);
+                sel.setText("Sel: "+nutriments.getString("salt_100g")+"g");
+                sel.setVisibility(View.VISIBLE);
+                lipides.setText("Lipides: "+nutriments.getString("fat_100g")+"g");
+                lipides.setVisibility(View.VISIBLE);
+                glucides.setText("Glucides: "+nutriments.getString("carbohydrates_100g")+"g");
+                glucides.setVisibility(View.VISIBLE);
+                proteines.setText("Protéines: "+nutriments.getString("proteins_100g")+"g");
+                proteines.setVisibility(View.VISIBLE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -146,4 +176,5 @@ public class Scan extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
+
 }
