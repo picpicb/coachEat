@@ -114,19 +114,19 @@ public class Scan extends AppCompatActivity {
                 photoProduit.setVisibility(View.VISIBLE);
                 switch (produit.getString("nutrition_grades")) {
                     case "a":
-                        nutriscore.setImageResource(R.drawable.ic_nutriscore_a);
+                        nutriscore.setImageResource(R.drawable.nutriscorea);
                         break;
                     case "b":
-                        nutriscore.setImageResource(R.drawable.ic_nutriscore_b);
+                        nutriscore.setImageResource(R.drawable.nutriscoreb);
                         break;
                     case "c":
-                        nutriscore.setImageResource(R.drawable.ic_nutriscore_c);
+                        nutriscore.setImageResource(R.drawable.nutriscorec);
                         break;
                     case "d":
-                        nutriscore.setImageResource(R.drawable.ic_nutriscore_d);
+                        nutriscore.setImageResource(R.drawable.nutriscored);
                         break;
                     case "e":
-                        nutriscore.setImageResource(R.drawable.ic_nutriscore_e);
+                        nutriscore.setImageResource(R.drawable.nutriscoree);
                         break;
                     default: break;
                 }
