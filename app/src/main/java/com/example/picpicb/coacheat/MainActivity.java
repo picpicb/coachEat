@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton3));
         menu = (ListView) findViewById(R.id.menu);
+
         userImage = (ImageButton) findViewById(R.id.userImage);
         this2 = this;
         for(ToggleButton t : toggles){
@@ -53,8 +54,17 @@ public class MainActivity extends AppCompatActivity {
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-                Intent intent = new Intent(this2, Scan.class);
-                startActivity(intent);
+
+                if(id == 2) {
+
+                    Intent intent = new Intent(this2, Scan.class);
+
+                    startActivity(intent);
+                }if(id == 0 ){
+                    Intent intent = new Intent(this2, MenuJour.class);
+
+                    startActivity(intent);
+                }
             }
         });
 
