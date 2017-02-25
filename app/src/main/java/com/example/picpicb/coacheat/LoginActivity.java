@@ -31,6 +31,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -153,24 +156,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, String> {
         private final String mEmail;
         private final String mPassword;
         private int id;
-        private final String url_login;
 
         public UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
             id = 0;
-            url_login = "https://picpicb.ddns.net/api_coacheat/login.php";
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             String line = "0";
             try {
-                URL url = new URL(url_login);
+                URL url = new URL("https://picpicb.ddns.net/api_coacheat/login.php");
                 HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
                 SSLContext ctx = SSLContext.getInstance("TLS");
                 ctx.init(null, new TrustManager[] {
@@ -191,7 +192,6 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-
                 String pparams = "pseudo="+mEmail+"&pass="+mPassword;
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
@@ -200,44 +200,85 @@ public class LoginActivity extends AppCompatActivity {
                 writer.close();
                 os.close();
                 conn.connect();
-
                 InputStream is = conn.getInputStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 line = rd.readLine();
                 rd.close();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
+            } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
                 e.printStackTrace();
             }
+
             if(!line.equals("0")){
                 id = Integer.parseInt(line);
-                return true;
+                try {
+                    URL url = new URL("https://picpicb.ddns.net/api_coacheat/coach.php?id="+id);
+                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                    SSLContext ctx1 = SSLContext.getInstance("TLS");
+                    ctx1.init(null, new TrustManager[] {
+                            new X509TrustManager() {
+                                public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+                                public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+                                public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
+                            }
+                    }, null);
+                    conn.setDefaultSSLSocketFactory(ctx1.getSocketFactory());
+                    conn.setDefaultHostnameVerifier(new HostnameVerifier() {
+                        public boolean verify(String hostname, SSLSession session) {
+                            return true;
+                        }
+                    });
+                    conn.setReadTimeout(10000);
+                    conn.setConnectTimeout(15000);
+                    conn.setRequestMethod("POST");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+                    String pparams = "" ;
+                    OutputStream os =null;
+                    os = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(pparams);
+                    writer.flush();
+                    writer.close();
+                    os.close();
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                    line = rd.readLine();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(line);
+                    is.close();
+                    rd.close();
+                    return sb.toString();
+                } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
+                    e.printStackTrace();
+                }
             }else{
-                return false;
+                return null;
             }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(String reponse) {
             mAuthTask = null;
             showProgress(false);
-            if (success) {
+            if (reponse != null) {
+                reponse = reponse.replace("[", "").replace("]", "");
+                Utilisateur user = null;
+                try {
+                    JSONObject jsonObj = new JSONObject(reponse);
+                    user = new Utilisateur(id,jsonObj.getString("nom"),jsonObj.getString("prenom"),jsonObj.getString("pseudo"),jsonObj.getInt("age"),jsonObj.getDouble("poids"),jsonObj.getInt("taille"),jsonObj.getString("objectifEnCour"),jsonObj.getString("photoLien"));
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
                 Intent intent = new Intent(this2, MainActivity.class);
-                intent.putExtra("USER_ID", Integer.toString(id));
+                intent.putExtra("USER", user);
                 startActivity(intent);
-
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }
-
         @Override
         protected void onCancelled() {
             mAuthTask = null;

@@ -7,6 +7,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -91,22 +93,72 @@ import java.net.URL;
  * Created by JM on 23/02/2017.
  */
 
-public class Utilisateur {
+public class Utilisateur implements Parcelable {
     private int id;
     private String nom;
     private String prenom;
     private String pseudo;
     private int age;
-    private  int poids;
+    private double poids;
     private int taille;
     private String objectif;
     private String photo;
 
-    public Utilisateur(int id){
+    public Utilisateur(int id, String nom, String prenom, String pseudo, int age, double poids, int taille, String objectif, String photo) {
         this.id = id;
-        //recuperation des données depuis la BD
-        (new UserInfoTask("https://picpicb.ddns.net/api_coacheat/coach.php?id="+this.id)).execute((Void) null);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.pseudo = pseudo;
+        this.age = age;
+        this.poids = poids;
+        this.taille = taille;
+        this.objectif = objectif;
+        this.photo = photo;
     }
+
+
+    public static final Parcelable.Creator<Utilisateur> CREATOR = new Parcelable.Creator<Utilisateur>()
+    {
+        @Override
+        public Utilisateur createFromParcel(Parcel source)
+        {
+            return new Utilisateur(source);
+        }
+
+        @Override
+        public Utilisateur[] newArray(int size)
+        {
+            return new Utilisateur[size];
+        }
+    };
+    public Utilisateur(Parcel in) {
+        this.id = in.readInt();
+        this.nom = in.readString();
+        this.prenom = in.readString();
+        this.pseudo = in.readString();
+        this.age = in.readInt();
+        this.poids = in.readDouble();
+        this.taille = in.readInt();
+        this.objectif = in.readString();
+        this.photo = in.readString();
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(nom);
+        dest.writeString(prenom);
+        dest.writeString(pseudo);
+        dest.writeInt(age);
+        dest.writeDouble(poids);
+        dest.writeInt(taille);
+        dest.writeString(objectif);
+        dest.writeString(photo);
+    }
+
 
     class UserInfoTask extends AsyncTask<Void, Void, String> {
         String url_info;
@@ -117,73 +169,13 @@ public class Utilisateur {
         @Override
         protected String doInBackground(Void... params) {
             String line = "0";
-            try {
-                URL url = new URL(url_info);
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                SSLContext ctx1 = SSLContext.getInstance("TLS");
-                ctx1.init(null, new TrustManager[] {
-                        new X509TrustManager() {
-                            public void checkClientTrusted(X509Certificate[] chain, String authType) {}
-                            public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-                            public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
-                        }
-                }, null);
-                conn.setDefaultSSLSocketFactory(ctx1.getSocketFactory());
-                conn.setDefaultHostnameVerifier(new HostnameVerifier() {
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                String pparams = "" ;
-                OutputStream os =null;
-                os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(pparams);
-                writer.flush();
-                writer.close();
-                os.close();
-                conn.connect();
-                InputStream is = conn.getInputStream();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-                line = rd.readLine();
-                StringBuilder sb = new StringBuilder();
-                sb.append(line);
-                is.close();
-                rd.close();
-                return sb.toString();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
-            }
+
             return null;
         }
 
         @Override
         protected void onPostExecute(String reponse) {
-            reponse = reponse.replace("[", "").replace("]", "");
-            try {
-                JSONObject jsonObj = new JSONObject(reponse);
-                setNom(jsonObj.getString("nom"));
-                setPrenom(jsonObj.getString("nom"));
-                setPseudo(jsonObj.getString("pseudo"));
-                setAge(jsonObj.getInt("age"));
-                setTaille(jsonObj.getInt("taille"));
-                setPoids(jsonObj.getInt("poids"));
-                setPhoto(jsonObj.getString("photoLien"));
-                setObjectif(jsonObj.getString("objectifEnCour"));
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
+
 
         }
     }
@@ -234,11 +226,11 @@ public class Utilisateur {
         this.age = age;
     }
 
-    public int getPoids() {
+    public double getPoids() {
         return poids;
     }
 
-    public void setPoids(int poids) {
+    public void setPoids(double poids) {
         this.poids = poids;
     }
 

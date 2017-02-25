@@ -31,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
-        int USER_ID = Integer.parseInt(intent.getStringExtra("USER_ID"));
-        System.out.println("MAIN ID :"+USER_ID);
-        user = new Utilisateur(USER_ID);
-
-
+        user = intent.getExtras().getParcelable("USER");
         toggles = new ArrayList<ToggleButton>();
         toggles.add((ToggleButton) findViewById(R.id.toggleButton));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
@@ -43,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         menu = (ListView) findViewById(R.id.menu);
         userImage = (ImageButton) findViewById(R.id.userImage);
         this2 = this;
-
-
         for(ToggleButton t : toggles){
             t.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -70,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         System.out.println("///////////////");
         System.out.println(user);
     }
