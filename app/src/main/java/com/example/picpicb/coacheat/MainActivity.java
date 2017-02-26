@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(this2, MenuJour.class);
 
                     startActivity(intent);
+                }if(id ==1){
+                    Intent intent = new Intent(this2, InfoUser.class);
+                    startActivity(intent);
                 }
             }
         });
