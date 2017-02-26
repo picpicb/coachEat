@@ -84,12 +84,12 @@
         android:layout_alignStart="@+id/textView5" />
 
     <Button
-        android:text="scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:id="@+id/bscan"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/barcodebutton"
+        android:layout_width="60dp" />
 
     <TextView
         android:text="Produit"
@@ -100,14 +100,27 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView"
-        android:layout_width="330dp" />
+        android:layout_width="330dp"
+        android:textColor="@android:color/background_dark"
+        android:textSize="20sp" />
+
+    <TextView
+        android:text="Utilisez le scanner de produit pour connaître ses valeurs nutritionnelles et son Nutriscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:elevation="2dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         app:srcCompat="@drawable/ic_menu_camera"
         android:id="@+id/nutriscore"
-        android:layout_marginTop="14dp"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:visibility="invisible"
+        android:layout_width="240dp"
+        android:layout_height="140dp"
+        android:layout_above="@+id/bscan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 </RelativeLayout>
