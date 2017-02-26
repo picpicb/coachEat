@@ -268,11 +268,15 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObj = new JSONObject(reponse);
                     user = new Utilisateur(id,jsonObj.getString("nom"),jsonObj.getString("prenom"),jsonObj.getString("pseudo"),jsonObj.getInt("age"),jsonObj.getDouble("poids"),jsonObj.getInt("taille"),jsonObj.getString("objectifEnCour"),jsonObj.getString("photoLien"));
+
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
+
+
                 Intent intent = new Intent(this2, MainActivity.class);
                 intent.putExtra("USER", user);
+
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

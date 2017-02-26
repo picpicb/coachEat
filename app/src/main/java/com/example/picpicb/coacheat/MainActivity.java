@@ -58,14 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 if(id == 2) {
 
                     Intent intent = new Intent(this2, Scan.class);
-
+                    intent.putExtra("USER",user);
                     startActivity(intent);
                 }if(id == 0 ){
                     Intent intent = new Intent(this2, MenuJour.class);
-
+                    intent.putExtra("USER",user);
                     startActivity(intent);
                 }if(id ==1){
                     Intent intent = new Intent(this2, InfoUser.class);
+                    intent.putExtra("USER",user);
                     startActivity(intent);
                 }
             }
