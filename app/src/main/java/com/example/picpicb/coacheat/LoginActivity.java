@@ -41,7 +41,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -171,22 +174,8 @@ public class LoginActivity extends AppCompatActivity {
         protected String doInBackground(Void... params) {
             String line = "0";
             try {
-                URL url = new URL("https://picpicb.ddns.net/api_coacheat/login.php");
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                SSLContext ctx = SSLContext.getInstance("TLS");
-                ctx.init(null, new TrustManager[] {
-                        new X509TrustManager() {
-                            public void checkClientTrusted(X509Certificate[] chain, String authType) {}
-                            public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-                            public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
-                        }
-                }, null);
-                conn.setDefaultSSLSocketFactory(ctx.getSocketFactory());
-                conn.setDefaultHostnameVerifier(new HostnameVerifier() {
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
+                URL url = new URL("http://picpicb.ddns.net/api_coacheat/login.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
@@ -204,29 +193,15 @@ public class LoginActivity extends AppCompatActivity {
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 line = rd.readLine();
                 rd.close();
-            } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
             if(!line.equals("0")){
                 id = Integer.parseInt(line);
                 try {
-                    URL url = new URL("https://picpicb.ddns.net/api_coacheat/coach.php?id="+id);
-                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                    SSLContext ctx1 = SSLContext.getInstance("TLS");
-                    ctx1.init(null, new TrustManager[] {
-                            new X509TrustManager() {
-                                public void checkClientTrusted(X509Certificate[] chain, String authType) {}
-                                public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-                                public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[]{}; }
-                            }
-                    }, null);
-                    conn.setDefaultSSLSocketFactory(ctx1.getSocketFactory());
-                    conn.setDefaultHostnameVerifier(new HostnameVerifier() {
-                        public boolean verify(String hostname, SSLSession session) {
-                            return true;
-                        }
-                    });
+                    URL url = new URL("http://picpicb.ddns.net/api_coacheat/coach.php?id="+id);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(10000);
                     conn.setConnectTimeout(15000);
                     conn.setRequestMethod("POST");
@@ -249,7 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                     is.close();
                     rd.close();
                     return sb.toString();
-                } catch (IOException | NoSuchAlgorithmException | KeyManagementException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }else{
