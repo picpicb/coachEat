@@ -1,13 +1,16 @@
 package com.example.picpicb.coacheat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -17,14 +20,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class MainActivity extends AppCompatActivity {
 
     public ArrayList<ToggleButton> toggles;
-    public ListView menu;
-    public ImageButton userImage;
-    private int USER_ID;
     private AppCompatActivity this2;
     private Utilisateur user;
-
-
-
+    private TextView m1,m2,m3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +30,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
+        m1 = (TextView) findViewById(R.id.m1);
+        m2 = (TextView) findViewById(R.id.m2);
+        m3 = (TextView) findViewById(R.id.m3);
         toggles = new ArrayList<ToggleButton>();
         toggles.add((ToggleButton) findViewById(R.id.toggleButton));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
         toggles.add((ToggleButton) findViewById(R.id.toggleButton3));
-        menu = (ListView) findViewById(R.id.menu);
-
-        userImage = (ImageButton) findViewById(R.id.userImage);
         this2 = this;
+
+        Drawable drawable = getResources().getDrawable(R.drawable.fouchette);
+        int bound = (int) (drawable.getIntrinsicWidth() * 0.5);
+        drawable.setBounds(0, 0, bound, bound);
+        m1.setCompoundDrawables(drawable, null, null, null);
+
+        drawable = getResources().getDrawable(R.drawable.accountlogo);
+        bound = (int) (drawable.getIntrinsicWidth() * 0.5);
+        drawable.setBounds(0, 0, bound, bound);
+        m2.setCompoundDrawables(drawable, null, null, null);
+
+        drawable = getResources().getDrawable(R.drawable.codebarre);
+        bound = (int) (drawable.getIntrinsicWidth() * 0.5);
+        drawable.setBounds(0, 0, bound, bound);
+        m3.setCompoundDrawables(drawable, null, null, null);
+
+
+
+
         for(ToggleButton t : toggles){
             t.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -51,35 +68,33 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
 
-                if(id == 2) {
 
-                    Intent intent = new Intent(this2, Scan.class);
-                    intent.putExtra("USER",user);
-                    startActivity(intent);
-                }if(id == 0 ){
-                    Intent intent = new Intent(this2, MenuJour.class);
-                    intent.putExtra("USER",user);
-                    startActivity(intent);
-                }if(id ==1){
-                    Intent intent = new Intent(this2, InfoUser.class);
-                    intent.putExtra("USER",user);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        userImage.setOnClickListener(new View.OnClickListener() {
+        m1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(this2, MenuJour.class);
+                intent.putExtra("USER",user);
+                startActivity(intent);
             }
         });
-        System.out.println("///////////////");
-        System.out.println(user);
+        m2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(this2, InfoUser.class);
+                intent.putExtra("USER",user);
+                startActivity(intent);
+            }
+        });
+        m3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(this2, Scan.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 }

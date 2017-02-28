@@ -6,39 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context="com.example.picpicb.coacheat.MainActivity"
     android:minHeight="180dp">
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:id="@+id/userImage" />
-
-    <TextView
-        android:text="pseudo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:id="@+id/pseudo" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/pseudo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal"
-        android:id="@+id/ToggleGroup">
+        android:id="@+id/ToggleGroup"
+        android:layout_marginBottom="34dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ToggleButton
             android:text="Maigrir"
@@ -49,7 +31,8 @@
             android:layout_weight="1"
             android:checked="false"
             android:textOff="Maigrir"
-            android:textOn="Maigrir" />
+            android:textOn="Maigrir"
+            android:textColorLink="@android:color/holo_orange_dark" />
 
         <ToggleButton
             android:text="Maintenir"
@@ -59,7 +42,8 @@
             android:id="@+id/toggleButton2"
             android:layout_weight="1"
             android:textOff="Maintenir"
-            android:textOn="Maintenir" />
+            android:textOn="Maintenir"
+            android:textColorLink="@android:color/holo_orange_dark" />
 
         <ToggleButton
             android:text="Grossir"
@@ -69,18 +53,84 @@
             android:id="@+id/toggleButton"
             android:layout_weight="1"
             android:textOff="Grossir"
-            android:textOn="Grossir" />
+            android:textOn="Grossir"
+            android:textColorLink="@android:color/holo_orange_dark" />
+
     </RadioGroup>
 
-    <ListView
+    <TextView
+        android:text="Menu du jour"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:entries="@array/menu_list"
-        android:layout_marginBottom="33dp"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/m1"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/menu"
-        android:headerDividersEnabled="true" />
+        android:textSize="20sp"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:clickable="true"
+        android:background="@color/zxing_status_text" />
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:id="@+id/surfaceView"
+        android:background="@color/zxing_viewfinder_mask"
+        android:layout_alignBottom="@+id/m1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:text="Mon corps"
+        android:layout_width="match_parent"
+        android:id="@+id/m2"
+        android:layout_height="90dp"
+        android:textSize="20sp"
+        android:drawableLeft="@drawable/accountlogo"
+        android:paddingLeft="15dp"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:layout_below="@+id/m1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/zxing_status_text" />
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:id="@+id/surfaceView2"
+        android:background="@color/zxing_viewfinder_mask"
+        android:layout_below="@+id/m2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:text="Scanner produit"
+        android:layout_width="match_parent"
+        android:id="@+id/m3"
+        android:layout_height="90dp"
+        android:textSize="20sp"
+        android:drawableLeft="@drawable/codebarre"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="20dp"
+        android:clickable="true"
+        android:background="@color/zxing_status_text"
+        android:layout_below="@+id/surfaceView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Mon objectif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
+        android:id="@+id/textView16"
+        android:textSize="19sp"
+        android:layout_above="@+id/ToggleGroup"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
