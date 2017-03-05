@@ -35,10 +35,10 @@ public class InfoUser extends AppCompatActivity {
         System.out.println(user.toString());
 
         v = (TextView) findViewById(R.id.info1);
-        v.setText(user.toString()); /*"\n" +*/
+            v.setText(user.toString()); /*"\n" +*/
 
-        ;
+            ;
 
 
+        }
     }
-}
