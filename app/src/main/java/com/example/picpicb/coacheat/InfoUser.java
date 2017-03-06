@@ -1,6 +1,7 @@
 package com.example.picpicb.coacheat;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -17,6 +18,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -56,5 +69,20 @@ public class InfoUser extends AppCompatActivity {
         taille.setText(Integer.toString(user.getTaille()));
 
 
+    }
+    public class UpdateDBTask extends AsyncTask<Void, Void, String> {
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String reponse) {
+
         }
     }
+
+}

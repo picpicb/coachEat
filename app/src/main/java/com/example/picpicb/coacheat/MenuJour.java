@@ -20,13 +20,11 @@ public class MenuJour extends AppCompatActivity {
     TextView t;
     TextView t2;
     TextView t3;
-    recetteTask r ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_jour);
-        r = new recetteTask();
         t = (TextView) findViewById(R.id.r1);
         t.setText("Menu Matin \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
 
@@ -38,62 +36,50 @@ public class MenuJour extends AppCompatActivity {
 
         System.out.println( "---****************************");
 
-        r.execute("800");
+        new recetteTask().execute(800);
     }
 
-        public class recetteTask extends AsyncTask<String, Void, String> {
+        public class recetteTask extends AsyncTask<Integer, Void, String> {
+            String str="";
 
-
-            public void onPreExecute(){
-
-            }
             @Override
-            protected String doInBackground(String... Param){
-                String r ="0";
-                String str = "";
+            protected String doInBackground(Integer... Param){
                 try {
-                    String url = "http://picpicb.ddns.net/api_coacheat/combi.php?cal=800"/*+ Param[0]*/;
-
+                    String url = "http://picpicb.ddns.net/api_coacheat/combi.php?cal="+Param[0];
                     URL object = new URL(url);
-
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
-
                     con.setRequestMethod("GET");
-
                     int reponseCode = con.getResponseCode();
-                    System.out.println(reponseCode+" -------------------------");
-
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream())) ;
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream())) ;
                     String inputLine;
                     StringBuffer response = new StringBuffer();
-
                     while((inputLine =in.readLine() )!= null){
                         response.append(inputLine);
                     }
-
                     //in.close;
-
-                    System.out.println(response.toString() + "****************************");
-
                     str = response.toString();
-
-
                     return str;
                 }catch(IOException e) {
                     e.printStackTrace();
                 } return str;
             }
+
             protected void onPostExecute(String response) {
                 if (response != null) {
-                    response = response.replace("[", "").replace("]", "");
-                    recette r1 = null;
                     try {
-                        JSONObject jsonObj = new JSONObject(response);
-                        JSONArray array = new JSONArray( jsonObj.getString(""));
-                        for(int i = 0; i<array.length();i++){
-                            JSONObject obj = new JSONObject(array.getString(i));
-                            r1 =new recette(obj.getString("listeIngredients"), obj.getString("nomRecette"),obj.getString("Etapes"),
+                        JSONArray jsonar = new JSONArray(response);
+                        //On fait un array de tout le json = [ {recette1} , {recette2} , {recette3} ]
+                        for(int i = 0; i<jsonar.length();i++){
+
+                            JSONObject obj = new JSONObject(jsonar.getString(i));
+                            //Au premier tour du for() on est sur la {recette 1} (un jsonObject)
+
+                            System.out.println(obj.getString("nomRecette"));
+                            //Pense à tester le type de recette pour savoir où la placer (matin,midi,soir)
+
+
+
+                            /*r1 =new recette(obj.getString("listeIngredients"), obj.getString("nomRecette"),obj.getString("Etapes"),
                                     obj.getString("type"),obj.getString("nbrKal")
                                     );
                             if(i==0){
@@ -102,11 +88,9 @@ public class MenuJour extends AppCompatActivity {
                                 t2.setText("Recette du: "+r1.getType()+r1.getNomR() + r1.getIngredients()+ r1.getEtape());
                             }if(i==2){
                                 t3.setText("Recette du: "+r1.getType()+r1.getNomR() + r1.getIngredients()+ r1.getEtape());
-                            }
+                            }*/
 
                         }
-                        //recette = new recette();
-
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
