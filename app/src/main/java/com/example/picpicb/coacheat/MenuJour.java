@@ -26,13 +26,13 @@ public class MenuJour extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_jour);
         t = (TextView) findViewById(R.id.r1);
-        t.setText("Menu Matin \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
+        //t.setText("Menu Matin \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
 
         t2 = (TextView) findViewById(R.id.r2);
-        t2.setText("Menu Midi \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
+        //t2.setText("Menu Midi \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
 
         t3 = (TextView) findViewById(R.id.r3);
-        t3.setText("Menu Soir \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
+        //t3.setText("Menu Soir \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
 
         System.out.println( "---****************************");
 
@@ -79,17 +79,17 @@ public class MenuJour extends AppCompatActivity {
 
 
 
-                            /*r1 =new recette(obj.getString("listeIngredients"), obj.getString("nomRecette"),obj.getString("Etapes"),
-                                    obj.getString("type"),obj.getString("nbrKal")
-                                    );
-                            if(i==0){
-                                t.setText("Recette du: "+r1.getType() + r1.getNomR() + r1.getIngredients()+ r1.getEtape());
-                            }if(i==1){
-                                t2.setText("Recette du: "+r1.getType()+r1.getNomR() + r1.getIngredients()+ r1.getEtape());
-                            }if(i==2){
-                                t3.setText("Recette du: "+r1.getType()+r1.getNomR() + r1.getIngredients()+ r1.getEtape());
-                            }*/
 
+                            if(obj.getString("type").equals(  "Matin" ) ){
+                                t.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+"\n"+
+                                        obj.getString("nbrKal"));
+                            }if(obj.getString("type").equals(  "Midi" ) ){
+                                t2.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+
+                                        "\n"+obj.getString("nbrKal"));
+                            }if(obj.getString("type").equals(  "Soir" )){
+                                t3.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+
+                                        "\n"+obj.getString("nbrKal"));
+                            }
                         }
                     } catch (JSONException e1) {
                         e1.printStackTrace();
