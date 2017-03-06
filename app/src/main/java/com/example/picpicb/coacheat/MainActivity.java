@@ -1,5 +1,6 @@
 package com.example.picpicb.coacheat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(this2, InfoUser.class);
                 intent.putExtra("USER",user);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         m3.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+            user = data.getExtras().getParcelable("USER");
+        }
     }
 
 }
