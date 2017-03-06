@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -20,13 +21,10 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class InfoUser extends AppCompatActivity {
     private Utilisateur user ;
-    private TextView v ;
-    private TextView id;
     private TextView nom;
-    private TextView pseudo;
-    private TextView Age;
-    private TextView Poids;
-    private TextView Taille;
+    private EditText age;
+    private EditText poids;
+    private EditText taille;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,27 +35,8 @@ public class InfoUser extends AppCompatActivity {
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
 
-        System.out.println("---------------------------------");
-        System.out.println(user.toString());
-
-        v = (TextView) findViewById(R.id.info1);
-        id = (TextView) findViewById(R.id.id);
         nom = (TextView) findViewById(R.id.Nom);
-        pseudo = (TextView) findViewById(R.id.Pseudo);
-        Age = (TextView) findViewById(R.id.Age);
-        Taille = (TextView) findViewById(R.id.Taille);
-        Poids = (TextView) findViewById(R.id.Poids);
-
-        id.setText(Integer.toString(user.getId()));
-        nom.setText(user.getPrenom() + user.getNom());
-        pseudo.setText(user.getPseudo());
-        Age.setText(Integer.toString(user.getAge()));
-        Taille.setText(Integer.toString(user.getTaille()));
-        Poids.setText(Double.toString(user.getPoids()));
-
-            v.setText(user.toString()); /*"\n" +*/
-
-            ;
+        nom.setText(user.getPrenom()+" " + user.getNom());
 
 
         }

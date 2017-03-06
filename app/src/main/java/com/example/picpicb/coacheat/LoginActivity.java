@@ -248,7 +248,6 @@ public class LoginActivity extends AppCompatActivity {
                     e1.printStackTrace();
                 }
 
-
                 Intent intent = new Intent(this2, MainActivity.class);
                 intent.putExtra("USER", user);
 

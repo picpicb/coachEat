@@ -88,7 +88,7 @@
         android:id="@+id/bscan"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/barcodebutton"
+        android:background="@drawable/codebarre"
         android:layout_width="60dp" />
 
     <TextView

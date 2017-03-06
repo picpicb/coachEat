@@ -10,78 +10,140 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.picpicb.coacheat.InfoUser">
 
-    <TextView
-        android:text="Informations Utilisateur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView8"
-        android:textSize="24sp" />
-
-    <TextView
-        android:text="Id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp"
-        android:id="@+id/id" />
-
-    <TextView
-        android:text="Nom + Prenom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/id"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Nom" />
-
-    <TextView
-        android:text="Pseudo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Nom"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Pseudo" />
-
-    <TextView
-        android:text="Age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Pseudo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Age" />
-
-    <TextView
-        android:text="Poids"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Age"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Poids" />
-
-    <TextView
-        android:text="Remplir avec ses infos"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/info1"
-        android:layout_below="@+id/Poids"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:text="Taille"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Poids"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Taille" />
+        <TextView
+            android:text="Informations Utilisateur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:id="@+id/Nom"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:text="Objectif :"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView14"
+                android:layout_marginLeft="10dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginRight="20dp" />
+
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/objectif"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView14"
+                android:layout_toEndOf="@+id/textView14" />
+        </RelativeLayout>
+
+        <GridLayout
+            android:layout_marginTop="10dp"
+            android:layout_height="60dp"
+            android:layout_width="150dp">
+
+            <TextView
+                android:text="Age :"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView15"
+                android:layout_marginLeft="10dp"
+                android:layout_row="1"
+                android:layout_column="8"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginRight="20dp" />
+
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:id="@+id/age"
+                android:inputType="number"
+                android:ems="10"
+                android:layout_width="63dp" />
+        </GridLayout>
+        <GridLayout
+            android:layout_marginTop="10dp"
+            android:layout_height="60dp"
+            android:layout_width="150dp">
+
+            <TextView
+                android:text="Poids :"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView16"
+                android:layout_marginLeft="10dp"
+                android:layout_row="1"
+                android:layout_column="8"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginRight="20dp" />
+
+            <EditText
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/poids" />
+        </GridLayout>
+        <GridLayout
+            android:layout_marginTop="10dp"
+            android:layout_height="60dp"
+            android:layout_width="150dp">
+
+            <TextView
+                android:text="Taille :"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/textView17"
+                android:layout_marginLeft="10dp"
+                android:layout_row="1"
+                android:layout_column="8"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginRight="20dp" />
+
+            <EditText
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/taille" />
+        </GridLayout>
+
+        <Button
+            android:text="OK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_marginTop="40dp" />
+
+        <Button
+            android:text="Sync Google Fit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 </RelativeLayout>
