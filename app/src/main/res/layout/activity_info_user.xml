@@ -60,7 +60,9 @@
         <GridLayout
             android:layout_marginTop="10dp"
             android:layout_height="60dp"
-            android:layout_width="150dp">
+            android:layout_width="150dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:text="Age :"

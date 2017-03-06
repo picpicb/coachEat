@@ -102,9 +102,8 @@ public class Utilisateur implements Parcelable {
     private double poids;
     private int taille;
     private String objectif;
-    private String photo;
 
-    public Utilisateur(int id, String nom, String prenom, String pseudo, int age, double poids, int taille, String objectif, String photo) {
+    public Utilisateur(int id, String nom, String prenom, String pseudo, int age, double poids, int taille, String objectif) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -113,7 +112,6 @@ public class Utilisateur implements Parcelable {
         this.poids = poids;
         this.taille = taille;
         this.objectif = objectif;
-        this.photo = photo;
     }
 
 
@@ -140,7 +138,6 @@ public class Utilisateur implements Parcelable {
         this.poids = in.readDouble();
         this.taille = in.readInt();
         this.objectif = in.readString();
-        this.photo = in.readString();
     }
     @Override
     public int describeContents() {
@@ -156,7 +153,6 @@ public class Utilisateur implements Parcelable {
         dest.writeDouble(poids);
         dest.writeInt(taille);
         dest.writeString(objectif);
-        dest.writeString(photo);
     }
 
 
@@ -250,11 +246,4 @@ public class Utilisateur implements Parcelable {
         this.objectif = objectif;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 }

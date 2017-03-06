@@ -242,7 +242,7 @@ public class LoginActivity extends AppCompatActivity {
                 Utilisateur user = null;
                 try {
                     JSONObject jsonObj = new JSONObject(reponse);
-                    user = new Utilisateur(id,jsonObj.getString("nom"),jsonObj.getString("prenom"),jsonObj.getString("pseudo"),jsonObj.getInt("age"),jsonObj.getDouble("poids"),jsonObj.getInt("taille"),jsonObj.getString("objectifEnCour"),jsonObj.getString("photoLien"));
+                    user = new Utilisateur(id,jsonObj.getString("nom"),jsonObj.getString("prenom"),jsonObj.getString("pseudo"),jsonObj.getInt("age"),jsonObj.getDouble("poids"),jsonObj.getInt("taille"),jsonObj.getString("objectifEnCour"));
 
                 } catch (JSONException e1) {
                     e1.printStackTrace();
