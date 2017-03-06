@@ -34,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
         m1 = (TextView) findViewById(R.id.m1);
         m2 = (TextView) findViewById(R.id.m2);
         m3 = (TextView) findViewById(R.id.m3);
-        toggles = new ArrayList<ToggleButton>();
-        toggles.add((ToggleButton) findViewById(R.id.toggleButton));
-        toggles.add((ToggleButton) findViewById(R.id.toggleButton2));
-        toggles.add((ToggleButton) findViewById(R.id.toggleButton3));
+
         this2 = this;
 
         Drawable drawable = getResources().getDrawable(R.drawable.fouchette);
@@ -58,16 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        for(ToggleButton t : toggles){
-            t.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    for (ToggleButton t : toggles) {
-                        if(t.getId() != v.getId())
-                            t.setChecked(false);
-                    }
-                }
-            });
-        }
 
 
 
