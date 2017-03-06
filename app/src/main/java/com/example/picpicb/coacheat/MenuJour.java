@@ -69,7 +69,7 @@ public class MenuJour extends AppCompatActivity {
                                     "\n"+"\n"+obj.getString("nbrKal"));
                         }if(obj.getString("type").equals(  "Soir" )){
                             t3.setText("Recette du: "+obj.getString("type") +"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ obj.getString("nomRecette")+"\n"+"\n"+obj.getString("Etapes")+
-                                    "\n"+"\n"+obj.getString("nbrKal"));
+                                    "\n"+"\n"+obj.getString("nbrKal")) ;
                         }
                     }
                 } catch (JSONException e1) {
