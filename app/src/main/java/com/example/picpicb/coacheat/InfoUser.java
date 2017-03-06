@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.fitness.result.DataReadResult;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class InfoUser extends AppCompatActivity {
     private Utilisateur user ;
@@ -38,7 +54,6 @@ public class InfoUser extends AppCompatActivity {
         poids = (EditText) findViewById(R.id.poids);
         taille = (EditText) findViewById(R.id.taille);
         Button ok = (Button) findViewById(R.id.button2);
-        Button syncGFit = (Button) findViewById(R.id.button);
 
         // ********************************* Setters *********************************
         nom.setText(user.getPrenom()+" " + user.getNom());
@@ -57,12 +72,6 @@ public class InfoUser extends AppCompatActivity {
                 new UpdateDBTask().execute(1);
             }
         });
-        syncGFit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
-
 
     }
     @Override
@@ -77,12 +86,13 @@ public class InfoUser extends AppCompatActivity {
     }
 
 
+
+
     public class UpdateDBTask extends AsyncTask<Integer, Void, Boolean> {
         private ProgressDialog dialog = new ProgressDialog(InfoUser.this);
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             dialog.setMessage("Chargement...");
             dialog.show();
             user.setObjectif(objectif.getSelectedItem().toString());
@@ -92,9 +102,8 @@ public class InfoUser extends AppCompatActivity {
         }
         @Override
         protected Boolean doInBackground(Integer... params) {
-            //selon le paramètre il s'agit d'une sauvegarde ou de l'importation des données Google Fit
-            if (params[0] == 1) {
                 try {
+                    Thread.sleep(1000);
                     URL url = new URL("http://picpicb.ddns.net/api_coacheat/updateUser.php?id="+user.getId()+"&age="+user.getAge()+"&poids="+user.getPoids()+"&taille="+user.getTaille()+"&objectif="+user.getObjectif());
                     System.out.println(url.toString());
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -105,22 +114,17 @@ public class InfoUser extends AppCompatActivity {
                     return true;
                 }catch(IOException e) {
                     e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }else{
-
-            }
             return false;
         }
 
         @Override
         protected void onPostExecute(Boolean res) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             dialog.dismiss();
+            Toast toast = Toast.makeText(getApplicationContext(), "Données sauvegardées", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
-
 }

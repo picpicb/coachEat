@@ -134,18 +134,11 @@
         </GridLayout>
 
         <Button
-            android:text="OK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/button2"
-            android:layout_marginTop="40dp" />
-
-        <Button
-            android:text="Sync Google Fit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="40dp"
+            android:text="enregistrer" />
 
     </LinearLayout>
 </RelativeLayout>
