@@ -2,9 +2,11 @@ package com.example.picpicb.coacheat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<ToggleButton> toggles;
     private AppCompatActivity this2;
     private Utilisateur user;
-    private TextView m1,m2,m3;
+    private TextView menuButton[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,34 +33,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
-        m1 = (TextView) findViewById(R.id.m1);
-        m2 = (TextView) findViewById(R.id.m2);
-        m3 = (TextView) findViewById(R.id.m3);
+        menuButton = new TextView[3];
+        menuButton[0] = (TextView) findViewById(R.id.m1);
+        menuButton[1] = (TextView) findViewById(R.id.m2);
+        menuButton[2] = (TextView) findViewById(R.id.m3);
 
         this2 = this;
 
         Drawable drawable = getResources().getDrawable(R.drawable.fouchette);
         int bound = (int) (drawable.getIntrinsicWidth() * 0.5);
         drawable.setBounds(0, 0, bound, bound);
-        m1.setCompoundDrawables(drawable, null, null, null);
-
+        menuButton[0].setCompoundDrawables(drawable, null, null, null);
         drawable = getResources().getDrawable(R.drawable.accountlogo);
         bound = (int) (drawable.getIntrinsicWidth() * 0.5);
         drawable.setBounds(0, 0, bound, bound);
-        m2.setCompoundDrawables(drawable, null, null, null);
-
+        menuButton[1].setCompoundDrawables(drawable, null, null, null);
         drawable = getResources().getDrawable(R.drawable.codebarre);
         bound = (int) (drawable.getIntrinsicWidth() * 0.5);
         drawable.setBounds(0, 0, bound, bound);
-        m3.setCompoundDrawables(drawable, null, null, null);
+        menuButton[2].setCompoundDrawables(drawable, null, null, null);
 
+        for(int i=0; i<3; i++){
+            menuButton[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch(event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.setBackgroundColor(Color.LTGRAY);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            v.setBackgroundColor(Color.WHITE);
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
 
-
-
-
-
-
-        m1.setOnClickListener(new View.OnClickListener() {
+        menuButton[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(this2, MenuJour.class);
@@ -66,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        m2.setOnClickListener(new View.OnClickListener() {
+        menuButton[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(this2, InfoUser.class);
@@ -74,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-        m3.setOnClickListener(new View.OnClickListener() {
+        menuButton[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(this2, Scan.class);
