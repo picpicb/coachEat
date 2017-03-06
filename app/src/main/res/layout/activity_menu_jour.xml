@@ -12,22 +12,43 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
-                android:text="Menu du Jour "
+                android:text="Menu du jour \n \n"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView10"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:lineSpacingExtra="12sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-smallcaps"
+                android:layout_weight="0.10" />
+
+            <TextView
+                android:text="Recette Matin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/RecetteMatin"
+                android:textSize="18sp"
+                android:typeface="monospace"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:textAlignment="center" />
 
             <TextView
                 android:text="Recette du Matin"
@@ -36,7 +57,23 @@
                 android:layout_below="@+id/textView10"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="77dp"
-                android:id="@+id/r1" />
+                android:id="@+id/r1"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="monospace"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:text="Recette Midi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:typeface="monospace"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:fontFamily="sans-serif-condensed"
+                android:textAlignment="center" />
 
             <TextView
                 android:text="Recette du Midi"
@@ -45,7 +82,21 @@
                 android:layout_marginTop="64dp"
                 android:id="@+id/r2"
                 android:layout_below="@+id/r1"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="monospace"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Recette Soir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:textStyle="italic"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="monospace"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <TextView
                 android:text="Recette du Soir"
@@ -54,7 +105,11 @@
                 android:layout_marginTop="89dp"
                 android:id="@+id/r3"
                 android:layout_below="@+id/r2"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-condensed"
+                android:typeface="monospace"
+                android:textSize="14sp"
+                android:textAlignment="viewStart" />
 
         </LinearLayout>
     </ScrollView>
