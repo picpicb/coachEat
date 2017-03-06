@@ -62,14 +62,14 @@ public class MenuJour extends AppCompatActivity {
                         System.out.println(obj.getString("nomRecette"));
                         //Pense à tester le type de recette pour savoir où la placer (matin,midi,soir)
                         if(obj.getString("type").equals(  "Matin" ) ){
-                            t.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+"\n"+
+                            t.setText("Recette du: "+obj.getString("type") +"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ obj.getString("nomRecette")+"\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
                                     obj.getString("nbrKal"));
                         }if(obj.getString("type").equals(  "Midi" ) ){
-                            t2.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+
-                                    "\n"+obj.getString("nbrKal"));
+                            t2.setText("Recette du: "+obj.getString("type") +"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ obj.getString("nomRecette")+"\n"+"\n"+obj.getString("Etapes")+
+                                    "\n"+"\n"+obj.getString("nbrKal"));
                         }if(obj.getString("type").equals(  "Soir" )){
-                            t3.setText("Recette du: "+obj.getString("type") +"\n"+obj.getString("listeIngredients")+"\n"+ obj.getString("nomRecette")+"\n"+obj.getString("Etapes")+
-                                    "\n"+obj.getString("nbrKal"));
+                            t3.setText("Recette du: "+obj.getString("type") +"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ obj.getString("nomRecette")+"\n"+"\n"+obj.getString("Etapes")+
+                                    "\n"+"\n"+obj.getString("nbrKal"));
                         }
                     }
                 } catch (JSONException e1) {
