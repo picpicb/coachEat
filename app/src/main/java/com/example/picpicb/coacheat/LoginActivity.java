@@ -224,7 +224,10 @@ public class LoginActivity extends AppCompatActivity {
                     is.close();
                     rd.close();
                     return sb.toString();
-                } catch (IOException e) {
+                }
+
+
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }else{

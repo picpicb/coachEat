@@ -36,15 +36,15 @@
                 android:layout_below="@+id/textView10"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="77dp"
-                android:id="@+id/textView9" />
+                android:id="@+id/r1" />
 
             <TextView
                 android:text="Recette du Midi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
-                android:id="@+id/textView11"
-                android:layout_below="@+id/textView9"
+                android:id="@+id/r2"
+                android:layout_below="@+id/r1"
                 android:layout_centerHorizontal="true" />
 
             <TextView
@@ -52,8 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="89dp"
-                android:id="@+id/textView12"
-                android:layout_below="@+id/textView11"
+                android:id="@+id/r3"
+                android:layout_below="@+id/r2"
                 android:layout_centerHorizontal="true" />
 
         </LinearLayout>
