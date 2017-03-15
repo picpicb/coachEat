@@ -79,13 +79,13 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         if((user.getObjectif()).equals("Maintenir")){
             nb = (int) c;
         }if((user.getObjectif()).equals("Maigrir")){
-            nb = ((int) c )-300;
+            nb = ((int) c )-200;
         }if((user.getObjectif()).equals("Grossir")){
-            nb = ((int) c) +300;
+            nb = ((int) c) +200;
         }
       //  t.setText( nb);
         System.out.println( nb + "---****************************");
-        new recetteTask().execute(nb);
+        new recetteTask().execute(nb+(int)(Math.random() * 150) );
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
