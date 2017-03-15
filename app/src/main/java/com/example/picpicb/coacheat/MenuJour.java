@@ -26,6 +26,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
     private float mAccelCurrent;
     private float mAccelLast;
     private AppCompatActivity this2;
+    private String[] tabR;
 
 
 
@@ -66,6 +67,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
 
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
+        tabR = new String[24];
 
 
 
@@ -110,14 +112,16 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
             mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta;
+            int i = 0;
+            if(mAccel > 40.){
 
-            if(mAccel > 30.){
                 System.out.println( nb + "---saaaaaaaaaaaaaaaaaaaaaa*********************");
                 Toast toast = Toast.makeText(getApplicationContext(), "DEVICE HAS SHAKEN.", Toast.LENGTH_LONG);
                 toast.show();
-                Intent intent = getIntent();finish();
-                intent.putExtra("USER",user);
-                startActivity(intent);
+                t.setText(tabR[i]);
+                t2.setText(tabR[i+1]);
+                t3.setText(tabR[i+2]);i=i+3;
+                if(i>=24){i=0;}
 
             }
 
@@ -175,6 +179,8 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
             if (response != null) {
                 try {
                     JSONArray jsonar = new JSONArray(response);
+
+                    System.out.println(jsonar.length()+"  aaaaaaaaaaaaaaaaaa");
                     //On fait un array de tout le json = [ {recette1} , {recette2} , {recette3} ]
                     for(int i = 0; i<jsonar.length();i++){
                         JSONObject obj = new JSONObject(jsonar.getString(i));
@@ -182,14 +188,23 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                         System.out.println(obj.getString("nomRecette"));
                         //Pense à tester le type de recette pour savoir où la placer (matin,midi,soir)
                         if(obj.getString("type").equals(  "Matin" ) ){
+
+
                             t.setText(obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
                                     obj.getString("nbrKal"));
+                            tabR[i]= obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
+                                    obj.getString("nbrKal");
+
                         }if(obj.getString("type").equals(  "Midi" ) ){
                             t2.setText(obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+
-                                    "\n"+"\n"+obj.getString("nbrKal"));
+                                   "\n"+"\n"+obj.getString("nbrKal"));
+                            tabR[i]= obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
+                                    obj.getString("nbrKal");
                         }if(obj.getString("type").equals(  "Soir" )){
                             t3.setText(obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+
-                                    "\n"+"\n"+obj.getString("nbrKal")) ;
+                                   "\n"+"\n"+obj.getString("nbrKal")) ;
+                            tabR[i]= obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
+                                    obj.getString("nbrKal");
                         }
                     }
                 } catch (JSONException e1) {
