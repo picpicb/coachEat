@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static java.lang.Thread.currentThread;
+import static java.lang.Thread.sleep;
+
 public class MenuJour extends AppCompatActivity implements SensorEventListener {
     //
     private SensorManager mSensorManager;
@@ -51,6 +55,9 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
     TextView t3;
     int nb ;
     double c;
+
+    int i = 0;
+
     @Override
 
 
@@ -112,16 +119,22 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
             mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta;
-            int i = 0;
-            if(mAccel > 40.){
 
+            if(mAccel > 15.){
+                if(i>=12){i=0;}
+                try {
+                    currentThread().sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.out.println( nb + "---saaaaaaaaaaaaaaaaaaaaaa*********************");
                 Toast toast = Toast.makeText(getApplicationContext(), "DEVICE HAS SHAKEN.", Toast.LENGTH_LONG);
                 toast.show();
                 t.setText(tabR[i]);
                 t2.setText(tabR[i+1]);
                 t3.setText(tabR[i+2]);i=i+3;
-                if(i>=24){i=0;}
+
+                if(i>=12){i=0;}
 
             }
 
@@ -191,7 +204,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
 
 
                             t.setText(obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
-                                    obj.getString("nbrKal"));
+                                   obj.getString("nbrKal"));
                             tabR[i]= obj.getString("nomRecette")+"\n"+"\n"+obj.getString("listeIngredients")+"\n"+"\n"+ "\n"+"\n"+obj.getString("Etapes")+"\n"+"\n"+
                                     obj.getString("nbrKal");
 
