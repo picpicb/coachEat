@@ -74,7 +74,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
 
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
-        tabR = new String[24];
+       // tabR = new String[24];
 
 
 
@@ -88,9 +88,9 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         if((user.getObjectif()).equals("Maintenir")){
             nb = (int) c;
         }if((user.getObjectif()).equals("Maigrir")){
-            nb = ((int) c )-200;
+            nb = ((int) c )-300;
         }if((user.getObjectif()).equals("Grossir")){
-            nb = ((int) c) +200;
+            nb = ((int) c) +600;
         }
       //  t.setText( nb);
         System.out.println( nb + "---****************************");
@@ -128,13 +128,13 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                     e.printStackTrace();
                 }
                 System.out.println( nb + "---saaaaaaaaaaaaaaaaaaaaaa*********************");
-                Toast toast = Toast.makeText(getApplicationContext(), "DEVICE HAS SHAKEN.", Toast.LENGTH_LONG);
-                toast.show();
+                //Toast toast = Toast.makeText(getApplicationContext(), "DEVICE HAS SHAKEN.", Toast.LENGTH_LONG);
+                //toast.show();
                 t.setText(tabR[i]);
                 t2.setText(tabR[i+1]);
                 t3.setText(tabR[i+2]);i=i+3;
 
-                if(i>=12){i=0;}
+                if(i>=tabR.length){i=0;}
 
             }
 
@@ -192,7 +192,9 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
             if (response != null) {
                 try {
                     JSONArray jsonar = new JSONArray(response);
-
+                    tabR = new String[jsonar.length()];
+                    Toast toast = Toast.makeText(getApplicationContext(), "Nombre de recettes chargées:"+(jsonar.length()/3), Toast.LENGTH_LONG);
+                    toast.show();
                     System.out.println(jsonar.length()+"  aaaaaaaaaaaaaaaaaa");
                     //On fait un array de tout le json = [ {recette1} , {recette2} , {recette3} ]
                     for(int i = 0; i<jsonar.length();i++){
