@@ -193,7 +193,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                 try {
                     JSONArray jsonar = new JSONArray(response);
                     tabR = new String[jsonar.length()];
-                    Toast toast = Toast.makeText(getApplicationContext(), "Nombre de recettes chargées:"+(jsonar.length()/3), Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Nombre de recettes chargées:"+(jsonar.length()/3)+"\n SECOUER pour Changer", Toast.LENGTH_LONG);
                     toast.show();
                     System.out.println(jsonar.length()+"  aaaaaaaaaaaaaaaaaa");
                     //On fait un array de tout le json = [ {recette1} , {recette2} , {recette3} ]
