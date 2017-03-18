@@ -18,15 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -71,12 +68,7 @@ public class Scan extends AppCompatActivity {
         nomProduit = (TextView) findViewById(R.id.textView2);
         photoProduit = (ImageView) findViewById(R.id.imageView);
         nutriscore = (ImageView) findViewById(R.id.nutriscore);
-
-
-
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -89,15 +81,11 @@ public class Scan extends AppCompatActivity {
                     new IntentIntegrator(this).initiateScan();
 
                 } else {
-
                     Toast toast = Toast.makeText(getApplicationContext(), "Vous n'avez pas autorisé les permissions", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 

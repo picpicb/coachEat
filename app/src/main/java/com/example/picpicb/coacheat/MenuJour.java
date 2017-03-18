@@ -1,4 +1,5 @@
 package com.example.picpicb.coacheat;
+
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,19 +19,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class MenuJour extends AppCompatActivity implements SensorEventListener {
-    //
+
     private SensorManager mSensorManager;
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
     private AppCompatActivity this2;
     private String[] tabR;
-
 
 
     @Override

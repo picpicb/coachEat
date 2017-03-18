@@ -1,97 +1,9 @@
 package com.example.picpicb.coacheat;
 
-import java.io.BufferedWriter;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.Base64;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-
-/**
- * Created by JM on 23/02/2017.
- */
 
 public class Utilisateur implements Parcelable {
     private int id;
@@ -115,20 +27,18 @@ public class Utilisateur implements Parcelable {
     }
 
 
-    public static final Parcelable.Creator<Utilisateur> CREATOR = new Parcelable.Creator<Utilisateur>()
-    {
+    public static final Parcelable.Creator<Utilisateur> CREATOR = new Parcelable.Creator<Utilisateur>() {
         @Override
-        public Utilisateur createFromParcel(Parcel source)
-        {
+        public Utilisateur createFromParcel(Parcel source) {
             return new Utilisateur(source);
         }
 
         @Override
-        public Utilisateur[] newArray(int size)
-        {
+        public Utilisateur[] newArray(int size) {
             return new Utilisateur[size];
         }
     };
+
     public Utilisateur(Parcel in) {
         this.id = in.readInt();
         this.nom = in.readString();
@@ -139,10 +49,12 @@ public class Utilisateur implements Parcelable {
         this.taille = in.readInt();
         this.objectif = in.readString();
     }
+
     @Override
     public int describeContents() {
         return 0;
     }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -165,21 +77,18 @@ public class Utilisateur implements Parcelable {
         @Override
         protected String doInBackground(Void... params) {
             String line = "0";
-
             return null;
         }
 
         @Override
         protected void onPostExecute(String reponse) {
 
-
         }
     }
 
 
-
-    public String toString(){
-        return "ID: "+id+" -- Prenom: "+prenom+" -- Nom: "+nom+" -- Pseudo: "+pseudo+" -- Age: "+age+" -- Poids: "+poids+" - Taille: "+taille;
+    public String toString() {
+        return "ID: " + id + " -- Prenom: " + prenom + " -- Nom: " + nom + " -- Pseudo: " + pseudo + " -- Age: " + age + " -- Poids: " + poids + " - Taille: " + taille;
     }
 
     public int getId() {
