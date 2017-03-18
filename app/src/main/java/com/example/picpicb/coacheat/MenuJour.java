@@ -45,7 +45,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         super.onPause();
     }
 
-    //
+
 
     private Utilisateur user ;
     TextView t;
@@ -63,16 +63,12 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_jour);
         t = (TextView) findViewById(R.id.r1);
-        //t.setText("Menu Matin \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
         t2 = (TextView) findViewById(R.id.r2);
-        //t2.setText("Menu Midi \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
         t3 = (TextView) findViewById(R.id.r3);
-        //t3.setText("Menu Soir \n \nIngrédients:\n-sucre\n-riz\n \nEtapes:\n BlaBLABLABLA ");
         System.out.println( "---****************************");
 
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
-       // tabR = new String[24];
 
 
 
@@ -90,7 +86,6 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         }if((user.getObjectif()).equals("Grossir")){
             nb = ((int) c) +600;
         }
-      //  t.setText( nb);
         System.out.println( nb + "---****************************");
         new recetteTask().execute(nb+(int)(Math.random() * 150) );
 
@@ -126,8 +121,6 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                     e.printStackTrace();
                 }
                 System.out.println( nb + "---saaaaaaaaaaaaaaaaaaaaaa*********************");
-                //Toast toast = Toast.makeText(getApplicationContext(), "DEVICE HAS SHAKEN.", Toast.LENGTH_LONG);
-                //toast.show();
                 t.setText(tabR[i]);
                 t2.setText(tabR[i+1]);
                 t3.setText(tabR[i+2]);i=i+3;
@@ -179,7 +172,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                 while((inputLine =in.readLine() )!= null){
                     response.append(inputLine);
                 }
-                //in.close;
+
                 str = response.toString();
                 return str;
             }catch(IOException e) {
