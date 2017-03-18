@@ -65,7 +65,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         t = (TextView) findViewById(R.id.r1);
         t2 = (TextView) findViewById(R.id.r2);
         t3 = (TextView) findViewById(R.id.r3);
-        System.out.println( "---****************************");
+
 
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
@@ -73,7 +73,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
 
 
             c = 66.5 + (13.8 * user.getPoids())+(5. * ((double) user.getTaille())) -(6.8 * ((double) user.getAge()) );
-            //c = c * 1.2;
+
             //On calcule le nombre de Kal dont il a besoin par jour
             //Si -Veut maigrir on propose des menus avec un apport de kalorie moindre
             //Si -Veut Grossir on propose plus
@@ -86,7 +86,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         }if((user.getObjectif()).equals("Grossir")){
             nb = ((int) c) +600;
         }
-        System.out.println( nb + "---****************************");
+
         new recetteTask().execute(nb+(int)(Math.random() * 150) );
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -120,7 +120,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println( nb + "---saaaaaaaaaaaaaaaaaaaaaa*********************");
+
                 t.setText(tabR[i]);
                 t2.setText(tabR[i+1]);
                 t3.setText(tabR[i+2]);i=i+3;
