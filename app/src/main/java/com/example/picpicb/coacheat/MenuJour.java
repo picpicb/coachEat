@@ -65,14 +65,10 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         t = (TextView) findViewById(R.id.r1);
         t2 = (TextView) findViewById(R.id.r2);
         t3 = (TextView) findViewById(R.id.r3);
-
-
         Intent intent = getIntent();
         user = intent.getExtras().getParcelable("USER");
 
-
-
-            c = 66.5 + (13.8 * user.getPoids())+(5. * ((double) user.getTaille())) -(6.8 * ((double) user.getAge()) );
+        c = 66.5 + (13.8 * user.getPoids())+(5. * ((double) user.getTaille())) -(6.8 * ((double) user.getAge()) );
 
             //On calcule le nombre de Kal dont il a besoin par jour
             //Si -Veut maigrir on propose des menus avec un apport de kalorie moindre
@@ -89,15 +85,12 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
 
         new recetteTask().execute(nb+(int)(Math.random() * 150) );
 
+        //On utilise les sensors pour changer de recette quand on secoue l'appareil
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         mAccel = 0.00f;
         mAccelCurrent =SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
-
-
-
-
 
     }
 
@@ -113,7 +106,9 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta;
 
-            if(mAccel > 15.){
+            //On calcul l'acceleration pour savoir si on doit changer de recette
+
+            if(mAccel > 15.){ //SENSIBILITE du "shaker"
                 if(i>=12){i=0;}
                 try {
                     currentThread().sleep(0);
@@ -159,7 +154,7 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
         @Override
         protected String doInBackground(Integer... Param){
 
-
+            //On se connecte à l'API pour récuperer les combinaisons de recettes
             try {
                 String url = "http://picpicb.ddns.net/api_coacheat/combi.php?cal="+Param[0];
                 URL object = new URL(url);
@@ -186,13 +181,12 @@ public class MenuJour extends AppCompatActivity implements SensorEventListener {
                     tabR = new String[jsonar.length()];
                     Toast toast = Toast.makeText(getApplicationContext(), "Nombre de recettes chargées:"+(jsonar.length()/3)+"\n SECOUER pour Changer", Toast.LENGTH_LONG);
                     toast.show();
-                    System.out.println(jsonar.length()+"  aaaaaaaaaaaaaaaaaa");
                     //On fait un array de tout le json = [ {recette1} , {recette2} , {recette3} ]
                     for(int i = 0; i<jsonar.length();i++){
                         JSONObject obj = new JSONObject(jsonar.getString(i));
                         //Au premier tour du for() on est sur la {recette 1} (un jsonObject)
                         System.out.println(obj.getString("nomRecette"));
-                        //Pense à tester le type de recette pour savoir où la placer (matin,midi,soir)
+                        //On stocke les recettes dans le tableau tabR de taille 3 * le nombre de combinaison de recettes
                         if(obj.getString("type").equals(  "Matin" ) ){
 
 
